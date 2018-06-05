@@ -14,7 +14,6 @@ export const signupRequest = user => (store) => {
   return superagent.post(`${API_URL}${routes.SIGNUP_ROUTE}`)
     .send(user)
     .then((response) => {
-      console.log(response);
       return store.dispatch(setTokenAction(response.text));
     });
 };
