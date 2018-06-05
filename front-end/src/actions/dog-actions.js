@@ -21,7 +21,7 @@ const dogDelete = dog => ({
 });
 
 const dogsFetchRequest = () => (dispatch) => {
-  return superagent.get(`${API_URL}/api/dogs`)
+  return superagent.get(`${API_URL}/dogs`)
     .then((response) => {
       dispatch(dogsFetch(response.body));
       return response;
@@ -29,7 +29,7 @@ const dogsFetchRequest = () => (dispatch) => {
 };
 
 const dogCreateRequest = dog => (dispatch) => {
-  return superagent.post(`${API_URL}/api/dogs`)
+  return superagent.post(`${API_URL}/dogs`)
     .send(dog)
     .then((response) => {
       dispatch(dogCreate(response.body));
@@ -37,12 +37,21 @@ const dogCreateRequest = dog => (dispatch) => {
     });
 };
 
+const dogUpdateRequest = dog => (dispatch) => {
+  return superagent.put(`${API_URL}/dogs/${dog._id}`)
+    .send(dog)
+    .then((response) => {
+      dispatch(dogUpdate(dog));
+      return response;
+    });
+};
+
 const dogDeleteRequest = dog => (dispatch) => {
-  return superagent.delete(`${API_URL}/api/dogs/${dog._id}`)
+  return superagent.delete(`${API_URL}/dogs/${dog._id}`)
     .then((response) => {
       dispatch(dogDelete(dog));
       return response;
     });
 };
 
-export { dogsFetchRequest, dogCreateRequest, dogDeleteRequest, dogUpdate };
+export { dogsFetchRequest, dogCreateRequest, dogDeleteRequest, dogUpdateRequest };

@@ -35,7 +35,7 @@ dogRouter.get('/dogs/:id', (request, response, next) => {
 });
 
 dogRouter.get('/dogs', (request, response, next) => {
-  return Dog.find()
+  return Dog.find({})
     .then((dogs) => {
       return response.json(dogs);
     })
