@@ -50,7 +50,7 @@ class AuthLanding extends React.Component {
       <h2> LOGIN! </h2>
       <AuthForm type='login' onComplete={ this.handleLogin}/>
       <p> Need an account? </p>
-      <Link to='/signup'> Sign up to our app</Link>
+      <Link to='/signup'> Sign up</Link>
     </div>;
 
     const { location } = this.props;
