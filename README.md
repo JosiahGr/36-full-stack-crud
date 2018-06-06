@@ -1,2 +1,29 @@
-#### Documentation  
-Write a description of the project in your README.md, including detailed instructions for how to build your app. In your frontend README.md add a code block with your frontend .env vars, and in your backend README.md add a code block with your backend .env vars. 
+## Front-End Auth
+version 1.0.0
+by Josiah Green
+
+#### Getting Started
+
+Fork from repo
+
+In your console, type the following commands.
+
+```npm run start```
+
+This starts the Database.
+
+```nodemon``` 
+
+This starts the server.
+
+```npm run start```
+
+This starts Webpack.
+
+#### Overview
+This is a full stack JavaScript application that utilizes MongoDB for the backend and React for the front end. 
+
+Users are allowed to signup/login to their accounts and add dogs into the database. When a user creates an account or logs in, they are assigned a token that allows them access to their account.
+
+#### Dependencies
+React, Redux, MongoDB, JavaScript, Node, Webpack, Enzyme, Express, MongoDB, Mongoose, Travis, Twilio, Heroku, superagent, winston, logger, jest, babel, dotenv, body-parser, crypto, bcrypt, jsonwebtoken, fs-extra, faker.
