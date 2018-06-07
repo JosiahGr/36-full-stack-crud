@@ -1,15 +1,9 @@
 import { fetchCookie } from '../utils/cookie';
+import { TOKEN_COOKIE_KEY } from '../constants';
 
-const token = fetchCookie('X-Sluggram-Token');
-/* 
-TODO: This needs to be my backend, not sluggrams
-check video for sluggram code that i need to add to the dog app
+const token = fetchCookie(TOKEN_COOKIE_KEY);
 
-res.cookie('X-Sluggram-Token', token, {maxAge: 900000})
-    res.send(token)
-*/
-
-const initialState = null;
+const initialState = token || null;
 
 export default (state = initialState, { type, payload }) => {
   switch (type) {

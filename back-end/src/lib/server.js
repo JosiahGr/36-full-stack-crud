@@ -2,6 +2,7 @@
 
 import express from 'express';
 import mongoose from 'mongoose';
+import cors from 'cors';
 import logger from './logger';
 import accountRoutes from '../routes/account-route';
 import profileRoutes from '../routes/profile-route';
@@ -11,7 +12,7 @@ import errorMiddleware from './error-middleware';
 
 const app = express();
 let server = null;
-
+app.use(cors({ credentials: true, origin: 'http://localhost:8080' }));
 app.use(loggerMiddleware);
 app.use(accountRoutes);
 app.use(profileRoutes);
@@ -28,7 +29,7 @@ const startServer = () => {
   return mongoose.connect(process.env.MONGODB_URI)
     .then(() => {
       server = app.listen(process.env.PORT, () => {
-        logger.log(logger.INFO, `Server is listening on port ${process.env.PORT}`);
+        logger.log(logger.INFO, `pppppServer is listening on port ${process.env.PORT}`);
       });
     });
 };
