@@ -30,14 +30,12 @@ class AuthForm extends React.Component {
     if (this.props.type === 'login') {
       return null;
     }
-    switch (name) { // name can be username, password or email
+    switch (name) {
       case 'username':
-        // here you can define your own logic
         if (value.length < MIN_NAME_LENGTH) {
           return `Your name must be at least ${MIN_NAME_LENGTH} characters long`;
         }
         return null;
-        // always return a value at the end of a switch case
 
       case 'email':
         if (!validator.isEmail(value)) {
@@ -61,7 +59,6 @@ class AuthForm extends React.Component {
     this.setState({ 
       [name]: value,
       [`${name}Dirty`]: true,
-      // this name is equivilant to username, email, or password
       [`${name}Error`]: this.handleValidation(name, value),
     });
   }
