@@ -6,10 +6,10 @@ const validateProfile = (profile) => {
     throw new Error(D23_001);
   }
   const { 
-    username, email, bio, owner,
-  } = profile; // TODO: update based on puppy pound info
+    firstName, lastName, breed, age, location, phoneNumber,
+  } = profile;
 
-  if (!username || !email || !bio || !owner) {
+  if (!firstName || !lastName || !breed || !age || !location || !phoneNumber) {
     throw new Error(D23_002);
   }
   return undefined;
@@ -22,8 +22,8 @@ export default (state = null, action) => {
     case 'CLIENT_PROFILE_SET':
       validateProfile(payload);
       return payload;
-    case 'TOKEN_REMOVE': // when we remove a token we want to log out the user
-      return null; // this removes the profile from the store
+    case 'TOKEN_REMOVE':
+      return null;
     default: 
       return state;
   }
