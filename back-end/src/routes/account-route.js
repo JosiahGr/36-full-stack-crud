@@ -11,16 +11,16 @@ const accountRouter = new Router();
 const jsonParser = json();
 
 accountRouter.post('/signup', jsonParser, (request, response, next) => {
-  return Account.create(request.body.username, request.body.email, request.body.password) // eslint-disable-line
+  return Account.create(request.body.username, request.body.email, request.body.phoneNumber, request.body.password)
     .then((account) => {
       delete request.body.password;
       logger.log(logger.INFO, 'AUTH - creating token');
       return account.pCreateToken();
     })
     .then((token) => {
+      response.cookie('X-Auth-Token', token, { maxAge: 900000 });
       logger.log(logger.INFO, 'AUTH - return 200 code');
-      response.cookie('X-Auth-Token', token, { maxAge: 90000 });
-      return response.json(token);
+      response.send(token);
     })
     .catch(next);
 });
@@ -32,7 +32,8 @@ accountRouter.get('/login', basicAuthMiddleware, (request, response, next) => {
   return request.account.pCreateToken()
     .then((token) => {
       logger.log(logger.INFO, 'responding with 200 status and token');
-      return response.send(token);
+      response.cookie('PPA-Token', token, { maxAge: 900000 });
+      response.send(token);
     })
     .catch(next);
 });

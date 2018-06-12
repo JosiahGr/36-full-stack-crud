@@ -27,13 +27,13 @@ profileRouter.post('/profiles', bearerAuthMiddleware, jsonParser, (request, resp
     .catch(next);
 });
 
-profileRouter.get('/profiles/me', bearerAuthMiddleware, (req, res, next) => {
-  return Profile.findOne({ account: req.account._id })
+profileRouter.get('/profiles/me', bearerAuthMiddleware, (request, response, next) => {
+  return Profile.findOne({ account: request.account._id })
     .then((profile) => {
       if (!profile) {
-        return next(404, 'NOT FOUND ERROR: profile not found');
+        return next(new HttpError(404, 'profile not found'));
       }
-      return res.json(profile);
+      return response.json(profile);
     })
     .catch(next);
 });

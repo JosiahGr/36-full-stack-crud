@@ -35,7 +35,7 @@ const fetchRequest = () => (store) => {
   const { token } = store.getState();
 
   return superagent.get(`${API_URL}${routes.PROFILE_ROUTE}/me`)
-  // TODO: check the route for this. Sluggram was /me not/id
+  // TODO: check the route for this. Sluggram was /me not /id
     .set('Authorization', `Bearer ${token}`)
     .then((response) => {
       return store.dispatch(setProfile(response.body));
