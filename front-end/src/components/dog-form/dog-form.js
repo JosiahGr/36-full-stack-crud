@@ -14,7 +14,6 @@ const defaultState = {
 export default class DogForm extends React.Component {
   constructor(props) {
     super(props);
-    // TODO: check here if not working
     this.state = props.dog ? props.dog : defaultState;
     autoBind.call(this, DogForm);
   }

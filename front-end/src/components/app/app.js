@@ -7,12 +7,17 @@ import AuthRedirect from '../auth-redirect/auth-redirect';
 import Dashboard from '../dashboard/dashboard';
 import Header from '../header/header';
 import AuthLanding from '../auth-landing/auth-landing';
-import * as clientProfileActions from '../../actions/client-profile';
+import * as profileActions from '../../actions/profile';
 import Profile from '../profile/profile';
 
-// TODO: This page has a lot to double check on
-
 class App extends React.Component {
+  componentDidMount() {
+    if (this.props.loggedIn) {
+      this.props.pFetchProfile()
+        .catch(console.error);
+    }
+  }
+
   render() {
     return (
       <div className='app'>
@@ -36,7 +41,7 @@ class App extends React.Component {
 
 App.propTypes = {
   loggedIn: PropTypes.bool,
-  pFetchClientProfile: PropTypes.func,
+  pFetchProfile: PropTypes.func,
 };
 
 const mapStateToProps = state => ({
@@ -44,7 +49,7 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-  pFetchClientProfile: () => dispatch(clientProfileActions.fetchRequest()),
+  pFetchProfile: () => dispatch(profileActions.fetchRequest()),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(App);

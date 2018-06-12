@@ -2,17 +2,14 @@ import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import autoBind from '../../utils';
-
-import * as clientProfileActions from '../../actions/client-profile';
+import ProfileForm from '../profile-form/profile-form';
+import * as profileActions from '../../actions/profile';
 import * as routes from '../../routes';
-
-// TODO: This page probably has a lot of bugs. Compare to lecture code
 
 class Profile extends React.Component {
   constructor(props) {
     super(props);
 
-    // UI state
     this.state = {
       editing: false,
     };
@@ -28,19 +25,16 @@ class Profile extends React.Component {
   }
 
   handleUpdate(profile) {
-    // TODO: add validation for error handling (catch blocks)
     this.props.profileUpdate(profile);
     this.setState({ editing: false });
   }
 
   render() {
-    const {
-      profile,
-    } = this.props;
+    const { profile } = this.props;
 
-    const JSXEditing = null;
-    const JSXDisplay = null;
-    const JSXProfile = null;
+    let JSXEditing = null;
+    let JSXDisplay = null;
+    let JSXProfile = null;
 
     if (profile) {
       JSXEditing = 
@@ -50,14 +44,17 @@ class Profile extends React.Component {
         </div>;
       JSXDisplay = 
         <div>
-          <p>{profile.bio}</p>
           <button onClick={() => this.setState({ editing: true })}> Edit </button>
         </div>;
       JSXProfile = 
-        <div>
-          <h2> {profile.username} </h2>
-          <h3> {profile.email} </h3>
-          {this.setState.editing ? JSXEditing : JSXDisplay}
+      <div>
+          <p>First Name - {profile.firstName}</p>
+          <p>Last Name - {profile.lastName}</p>
+          <p>Phone Number - {profile.phoneNumber}</p>
+          <p>Location - {profile.location}</p>
+          <p>Age preference - {profile.age}</p>
+          <p>Breed preference - {profile.breed}</p>
+          {this.state.editing ? JSXEditing : JSXDisplay}
         </div>;
     }
     return (
@@ -69,21 +66,20 @@ class Profile extends React.Component {
   }
 }
 
-Profile.PropTypes = {
+Profile.propTypes = {
   profileCreate: PropTypes.func,
   profileUpdate: PropTypes.func,
-  profile: PropTypes.func,
+  profile: PropTypes.object,
   history: PropTypes.object,
 };
 
 const mapStateToProps = state => ({
-  profile: state.clientProfile,
-
+  profile: state.profile,
 });
 
 const mapDispatchToProps = dispatch => ({
-  profileCreate: profile => dispatch(clientProfileActions.createRequest(profile)),
-  profileUpdate: profile => dispatch(clientProfileActions.updateRequest(profile)),
+  profileCreate: profile => dispatch(profileActions.createRequest(profile)),
+  profileUpdate: profile => dispatch(profileActions.updateRequest(profile)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Profile);

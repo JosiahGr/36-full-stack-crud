@@ -3,12 +3,13 @@ import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 
+import * as routes from '../../routes';
 import * as authActions from '../../actions/auth-actions';
+import * as profileActions from '../../actions/profile';
 
 import autoBind from '../../utils';
 import AuthForm from '../auth-form/auth-form';
 
-import * as routes from '../../routes';
 
 class AuthLanding extends React.Component {
   constructor(props) {
@@ -20,6 +21,8 @@ class AuthLanding extends React.Component {
     return this.props.pDoLogin(user)
       .then(() => {
         this.props.history.push(routes.DASHBOARD_ROUTE);
+        this.props.pFetchProfile();
+        // TODO: this may be troublesome
       })
       .catch(console.error);
   }
@@ -34,24 +37,27 @@ class AuthLanding extends React.Component {
 
   render() {
     const rootJSX = <div>
-      <h2> WELCOME TO OUR APP!! </h2>
+      <h2> WELCOME TO OUR APP! </h2>
       <Link to='/signup'> Sign up</Link>
       <Link to='/login'> Login</Link>
     </div>;
 
-    const signUpJSX = <div>
-      <h2> SIGN UP! </h2>
-      <AuthForm onComplete= {this.handleSignup}/>
-      <p> Already have an account? </p>
-      <Link to='/login'> Login</Link>
-    </div>;
+    const signUpJSX = 
+      <div>
+        <h2>Signup</h2>
+        <p>Already have an account?</p>
+        <Link to="/login">Login</Link>
+        <AuthForm onComplete={this.handleSignup} type="Signup"/>
+      </div>;
 
-    const loginJSX = <div>
-      <h2> LOGIN! </h2>
-      <AuthForm type='login' onComplete={ this.handleLogin}/>
-      <p> Need an account? </p>
-      <Link to='/signup'> Sign up</Link>
-    </div>;
+
+    const loginJSX = 
+      <div>
+        <h2>Login</h2>
+        <p>Need an account?</p>
+        <Link to="/signup">Signup</Link>
+        <AuthForm onComplete={this.handleLogin} type="Login"/>
+      </div>;
 
     const { location } = this.props;
 
@@ -68,6 +74,7 @@ class AuthLanding extends React.Component {
 AuthLanding.propTypes = {
   pDoLogin: PropTypes.func,
   pDoSignup: PropTypes.func,
+  pFetchProfile: PropTypes.func,
   location: PropTypes.object,
   history: PropTypes.object,
 };
@@ -79,6 +86,7 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = dispatch => ({
   pDoSignup: user => dispatch(authActions.signupRequest(user)),
   pDoLogin: user => dispatch(authActions.loginRequest(user)),
+  pFetchProfile: () => dispatch(profileActions.fetchRequest()),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(AuthLanding);
