@@ -41,15 +41,16 @@ To install dependencies, run:
 
 Touch a .env file into your project and add the following dependencies. 
 
-```NODE_ENV=development
-PORT=4000
+```
+NODE_ENV=development
+PORT=3000
 MONGODB_URI=mongodb://localhost/testing
 PUPPY_SECRET=somerandomstringthatshouldbereallylongandrandom
 CORS_ORIGIN=http://localhost:8080
 TWILIO_ACCOUNT_SID=youNeedToCreateOneFromTwilio
 TWILIO_AUTH_TOKEN=youNeedToCreateOneFromTwilio
-TWILIO_NUMBER=+1206123456
-MY_NUMBER=+1206123456
+TWILIO_NUMBER=+12345678999
+MY_NUMBER=+12345678999
 ```
 
 ```nodemon``` or ```npm start``` This will start the server and tell you what port you're on

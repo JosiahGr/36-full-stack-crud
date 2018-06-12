@@ -6,6 +6,11 @@ by Josiah Green
 
 Fork from repo
 
+touch a .env file and add the following block of code.
+
+```API_URL=http://localhost:3000```
+```NODE_ENV=development```
+
 In your console, type the following commands.
 
 ```npm run start```
