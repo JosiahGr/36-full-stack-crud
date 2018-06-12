@@ -16,6 +16,7 @@ const emptyState = {
   passwordDirty: false,
   passwordError: 'password is required',
 };
+
 const MIN_NAME_LENGTH = 6;
 const MIN_PASSWORD_SIZE = 6;
 
@@ -79,26 +80,24 @@ class AuthForm extends React.Component {
 
   render() {
     let { type } = this.props;
-
     type = type === 'Login' ? type : 'Signup';
-    // TODO: check here if not working
-    const signupJSX =
+
+    const signupJSX = 
       <div>
         { this.state.emailDirty ? <p>{ this.state.emailError }</p> : undefined }
-      <input
-        name='email'
-        placeholder='email'
-        type='email'
-        value={this.state.email}
-        onChange={this.handleChange}
+        <input
+          name='email'
+          placeholder='email'
+          type='email'
+          value={this.state.email}
+          onChange={this.handleChange}
         />
       </div>;
 
-    const signupRenderedJSX = (type !== 'login') ? signupJSX : undefined;
+    const signupRenderJSX = (type !== 'Login') ? signupJSX : undefined;
 
     return (
-      <form className='auth-form' noValidate onSubmit={this.handleSubmit} >
-        
+      <form className='auth-form' onSubmit={this.handleSubmit}>
         { this.state.usernameDirty ? <p>{ this.state.usernameError }</p> : undefined }
         <input
           name='username'
@@ -106,21 +105,20 @@ class AuthForm extends React.Component {
           type='text'
           value={this.state.username}
           onChange={this.handleChange}
-          />
+        />
 
-        {signupRenderedJSX}
+        {signupRenderJSX} 
 
         { this.state.passwordDirty ? <p>{ this.state.passwordError }</p> : undefined }
         <input
-          className= { this.state.passwordDirty ? 'input-error' : '' }
+          className={ this.state.passwordDirty ? 'input-error' : '' }
           name='password'
           placeholder='password'
           type='password'
           value={this.state.password}
           onChange={this.handleChange}
-          />
-
-        <button type='submit'> {type} </button>
+        />
+        <button type="submit">{type}</button>
       </form>
     );
   }
